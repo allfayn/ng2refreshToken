@@ -1,3 +1,7 @@
-<h1>
-  {{title}}
-</h1>
+<div>
+  token: {{getToken()|async}}
+</div>
+<div>
+  user: {{user}}
+</div>
+<button (click)="userSync()">reSyncUser</button>
