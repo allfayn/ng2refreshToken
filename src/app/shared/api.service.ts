@@ -17,14 +17,14 @@ export class ApiService {
     //   .map((data) => <T>data.json());
 
 
-    return Observable.of(url).delay(500).flatMap(result => {
-      console.log('doRequest:', this.count);
-      if (this.count > 3) {
+    return Observable.of(url).switchMap(result => {
+      console.log('doRequest:', this.count + 1);
+      if (this.count >= 3) {
         this.count = 0;
-        return Observable.throw('This is an error!').delay(500);
+        return Observable.throw('This is an error!').delay(1000);
       } else {
         this.count++;
-        return Observable.of(result + this.count);
+        return Observable.of(result + this.count).delay(1000);
       }
     });
   }
@@ -37,12 +37,11 @@ export class ApiService {
 
   private tokenize<T>(request) {
     return this.tokenService.get()
-      .skipWhile(token => !token)
       .combineLatest<string, any>(request())
       .retryWhen(errors => errors
-        .do(val => console.log(`Request Error: `, val))
+        .do((error) => console.log('error:', error))
         .do(val => this.tokenService.request())
-        .delayWhen(val => this.tokenService.get())
+        .delayWhen(val => Observable.timer(500))
       )
       .map(([token, result]) => result);
   }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { Http, RequestOptions } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthHttp } from 'angular2-jwt';
 import 'rxjs/add/observable/of';
@@ -17,6 +17,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/skipWhile';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeWhile';
 import { AppComponent } from './app.component';
 import { ApiService } from './shared/api.service';
